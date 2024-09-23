@@ -13,6 +13,10 @@ const props = defineProps({
     isQues: {
         type: Boolean,
         default: false
+    },
+    showQuick: {
+        type: Boolean,
+        default: false
     }
 });
 const emits = defineEmits(["endTrial"]);
@@ -35,7 +39,8 @@ onMounted(() => {
     <div class="judge-card-box">
         <canvas ref="canvas" width="1282" height="718"></canvas>
         <div v-if="!props.isQues" style="text-align: center; font-size: 24px; line-height: 32px;">
-            认为A比较高, 请按“F”键; 认为B比较高, 请选择“J” 键。
+            <p>认为A比较高, 请按“F”键; 认为B比较高, 请选择“J” 键。</p>
+            <p v-if="props.showQuick" style="font-weight: 700;">即使你认为A和B一样高，仍然需要从A、B中尽快做出选择！</p>
         </div>
         <div :class="{ tag: true, hor: props.isHor, ver: !props.isHor }">
             <div class="a">A</div>

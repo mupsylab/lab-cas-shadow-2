@@ -93,11 +93,12 @@ const trial = {
     choices: ["f", "j"],
     stimulus: "<div id='box'></div>",
     on_load() {
-        const { ac, mc, highIndex } = jsPsych.getAllTimelineVariables();
+        const { ac, mc, highIndex, showQuick = false } = jsPsych.getAllTimelineVariables();
         const high = mc == "不考虑遮挡" ? (0.5 + highIndex * 0.1).toFixed(1) : (1.0 + highIndex * 0.2).toFixed(1);
         render(h(judgeCard, {
             imgUrl: loader.getAssets(`./assets/imgs/C面光/${ac}-${mc}/${high}.png`),
-            isHor: ac == "平铺"
+            isHor: ac == "平铺",
+            showQuick: showQuick
         }), document.querySelector("#box") as Element);
     },
     on_finish(data: { response: "j" | "f" }) {
@@ -204,9 +205,9 @@ timeline.push({
     }, {
         timeline: [fixation, trial, feedback],
         timeline_variables: [
-            { mc: "不考虑遮挡", highIndex: 0 },
-            { mc: "考虑遮挡", highIndex: 30 },
-            { mc: "考虑遮挡", highIndex: 16 },
+            { mc: "不考虑遮挡", highIndex: 0, showQuick: false },
+            { mc: "考虑遮挡", highIndex: 30, showQuick: false },
+            { mc: "考虑遮挡", highIndex: 16, showQuick: true },
         ]
     }],
     timeline_variables: [
@@ -219,7 +220,10 @@ timeline.push({
         trials.forEach(v => {
             corrVal += v.corr;
         });
-        if (corrVal / 6 < 0.8) return true;
+        if (corrVal / 6 < 0.8) {
+            alert("错误率过高, 请重新作答");
+            return true;
+        }
         else return false;
     }
 });
