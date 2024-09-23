@@ -247,13 +247,13 @@ timeline.push({
     }],
     timeline_variables: (function () {
         const rr = [
-            { mc: "考虑遮挡", ac: "平铺" },
             { mc: "不考虑遮挡", ac: "平铺" },
-            { mc: "考虑遮挡", ac: "不平铺" },
-            { mc: "不考虑遮挡", ac: "不平铺" }
+            { mc: "考虑遮挡", ac: "平铺" },
+            { mc: "不考虑遮挡", ac: "不平铺" },
+            { mc: "考虑遮挡", ac: "不平铺" }
         ];
         const r: { mc: string; ac: string; }[] = [];
-        sort.forEach(i => { r.push(rr[i]) });
+        sort.forEach(i => { r.push(rr[i - 1]) });
         return r;
     })()
 });
