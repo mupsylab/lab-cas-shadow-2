@@ -252,7 +252,9 @@ timeline.push({
             { mc: "考虑遮挡", ac: "不平铺" },
             { mc: "不考虑遮挡", ac: "不平铺" }
         ];
-        return rr;
+        const r: { mc: string; ac: string; }[] = [];
+        sort.forEach(i => { r.push(rr[i]) });
+        return r;
     })()
 });
 // 问卷部分
